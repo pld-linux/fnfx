@@ -9,8 +9,7 @@ Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5:	fb0b2a9d6c5446a4615d907a572fd541
 Source1:	%{name}.init
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Requires(pre):	rpm-helper
-Requires(post):	rpm-helper
+Requires(post,preun):   /sbin/chkconfig
 
 %description
 FnFX enables owners of Toshiba laptops to change the LCD brightness,
@@ -42,10 +41,20 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/fnfx
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%_post_service %{name}
+/sbin/chkconfig --add %{name}
+if [ -f /var/lock/subsys/%{name} ]; then
+        /etc/rc.d/init.d/%{name} restart >&2
+else
+        echo "Run \"/etc/rc.d/init.d/%{name} start\" to start %{name} daemon." >&2
+fi
 
 %preun
-%_preun_service %{name}
+if [ "$1" = "0" ]; then
+        if [ -f /var/lock/subsys/%{name} ]; then
+                /etc/rc.d/init.d/%{name} stop >&2
+        fi
+        /sbin/chkconfig --del %{name}
+fi
 
 %files
 %defattr(644,root,root,755)
