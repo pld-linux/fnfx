@@ -62,6 +62,6 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/*
-%config(noreplace) %{_initrddir}/%{name}
+%attr(754,root,root)  %{_initrddir}/%{name}
 
 #%doc ChangeLog INSTALL AUTHORS README
