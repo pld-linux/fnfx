@@ -6,6 +6,7 @@ License:	GPL
 URL:		http://fnfx.sf.net
 Group:		System/Configuration/Hardware
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+# Source0-md5:	fb0b2a9d6c5446a4615d907a572fd541
 Source1:	%{name}.init
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires(pre):	rpm-helper
