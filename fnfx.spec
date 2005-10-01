@@ -3,12 +3,12 @@ Summary(pl):	Narzêdzie do obs³ugi klawisza funkcyjnego w laptopach firmy Toshiba
 Name:		fnfx
 Version:	0.3
 Release:	0.1
-License:	GPL
+License:	GPL v2
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/fnfx/%{name}-%{version}.tar.gz
 # Source0-md5:	2487730494a8ff86d83d9cf7e6a67325
 Source1:	%{name}.init
-URL:		http://fnfx.sf.net/
+URL:		http://fnfx.sourceforge.net/
 Requires(post,preun):   /sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -42,8 +42,8 @@ i Toshiby (CONFIG_ACPI i CONFIG_ACPI_TOSHIBA).
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d}
-install -d $RPM_BUILD_ROOT/etc/fnfx
+install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d,%{_sysconfdir}/fnfx}
+
 install src/{fnfx,fnfxd} $RPM_BUILD_ROOT%{_sbindir}
 install etc/{fnfxd.conf,keymap} $RPM_BUILD_ROOT/etc/fnfx
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/fnfx
@@ -69,9 +69,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_sbindir}/*
-%dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}
 %attr(754,root,root)  /etc/rc.d/init.d/%{name}
-
-#%doc ChangeLog INSTALL AUTHORS README
