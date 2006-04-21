@@ -20,18 +20,16 @@
 RETVAL=0
 
 start() {
-	gprintf "Starting up Toshiba function key daemon (fnfxd): "
+	msg_starting "Toshiba function key daemon (fnfxd): "
 	daemon /usr/sbin/fnfxd
 	touch /var/lock/subsys/fnfxd
-	echo
 }
 
 stop() {
-	gprintf "Shutting down Toshiba function key daemon (fnfxd): "
+	msg_stopping "Toshiba function key daemon (fnfxd): "
 	killproc fnfxd
 	RETVAL=$?
 	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/fnfxd
-	echo
 }
 
 dostatus() {
@@ -67,7 +65,7 @@ case "$1" in
 	condrestart
 	;;
   *)
-	gprintf "Usage: $0 {start|stop|status|restart|reload|condrestart}\n"
+	msg_usage "$0 {start|stop|status|restart|reload|condrestart}"
 	exit 1
 esac
 

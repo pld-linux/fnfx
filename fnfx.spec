@@ -2,7 +2,7 @@ Summary:	Toshiba laptop function key utility
 Summary(pl):	Narzêdzie do obs³ugi klawisza funkcyjnego w laptopach firmy Toshiba
 Name:		fnfx
 Version:	0.3
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/fnfx/%{name}-%{version}.tar.gz
@@ -42,9 +42,10 @@ i Toshiby (CONFIG_ACPI i CONFIG_ACPI_TOSHIBA).
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d,%{_sysconfdir}/fnfx}
+install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d,%{_sysconfdir}/fnfx,%{_bindir}}
 
-install src/{fnfx,fnfxd} $RPM_BUILD_ROOT%{_sbindir}
+install src/fnfxd $RPM_BUILD_ROOT%{_sbindir}
+install src/fnfx $RPM_BUILD_ROOT%{_bindir}
 install etc/{fnfxd.conf,keymap} $RPM_BUILD_ROOT/etc/fnfx
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/fnfx
 
@@ -70,6 +71,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sbindir}/fnfxd
+%attr(755,root,root) %{_bindir}/fnfx
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}
 %attr(754,root,root)  /etc/rc.d/init.d/%{name}
