@@ -1,4 +1,5 @@
 Summary:	Toshiba laptop function key utility
+Summary(de):	Toshiba Laptop Funktionstasten listener
 Summary(pl):	Narzêdzie do obs³ugi klawisza funkcyjnego w laptopach firmy Toshiba
 Name:		fnfx
 Version:	0.3
@@ -9,7 +10,7 @@ Source0:	http://dl.sourceforge.net/fnfx/%{name}-%{version}.tar.gz
 # Source0-md5:	2487730494a8ff86d83d9cf7e6a67325
 Source1:	%{name}.init
 URL:		http://fnfx.sourceforge.net/
-Requires(post,preun):   /sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -21,6 +22,17 @@ suspend to disk, suspend to ram and switch LCD/CRT/TV-out. These
 functions heavily depend on the system and/or kernel configuration.
 You will need at least a kernel (v2.4.x, v2.6.x) with ACPI and Toshiba
 support (CONFIG_ACPI and CONFIG_ACPI_TOSHIBA).
+
+%description -l de
+FnFX ermöglicht es Toshiba Laptop Benutzern die Helligkeit des LCD
+Bildschirms zu ändern, den internen Fan zu steuern und die
+Funktionstasten auf den Laptop zu aktievieren (Fn-x kombinationen).
+Die internen Funktionen erlauben es die Lautstärke höcher/niedriger zu
+stellen, Ton ausschalten, einfrieren zu RAM/Festplatte und den wechsel
+zwischen LCD/CRT/TV-out. Diese Optionen hängen schwer von der system
+und/oder Kernel konfiguration ab. Du wirst mindestens einen Kernel
+(v2.4.x, v.2.6.x) mit ACPI und Toshiba Unterstützung (CONFIG_ACPI and
+CONFIG_ACPI_TOSHIBA) benötigen.
 
 %description -l pl
 FnFx pozwala posiadaczom laptopów firmy Toshiba na zmianê jasno¶ci
@@ -46,7 +58,7 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d,%{_sysconfdir}/fnfx,%{_b
 
 install src/fnfxd $RPM_BUILD_ROOT%{_sbindir}
 install src/fnfx $RPM_BUILD_ROOT%{_bindir}
-install etc/{fnfxd.conf,keymap} $RPM_BUILD_ROOT/etc/fnfx
+install etc/{fnfxd.conf,keymap} $RPM_BUILD_ROOT%{_sysconfdir}/fnfx
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/fnfx
 
 %clean
