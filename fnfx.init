@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# chkconfig: 2345 27 73
+# chkconfig: 2345 88 73
 # description: apmiser is used for monitoring system usage when on batteries, \
 #	scaling the CPU voltage down via tpctl when idle to save power.
 # processname: apmiser
