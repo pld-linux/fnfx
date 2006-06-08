@@ -2,12 +2,13 @@ Summary:	Toshiba laptop function key utility
 Summary(pl):	Narzêdzie do obs³ugi klawisza funkcyjnego w laptopach firmy Toshiba
 Name:		fnfx
 Version:	0.3
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/fnfx/%{name}-%{version}.tar.gz
 # Source0-md5:	2487730494a8ff86d83d9cf7e6a67325
 Source1:	%{name}.init
+Patch0:		%{name}-shad.patch
 URL:		http://fnfx.sourceforge.net/
 Requires(post,preun):   /sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -35,6 +36,7 @@ i Toshiby (CONFIG_ACPI i CONFIG_ACPI_TOSHIBA).
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 %configure
