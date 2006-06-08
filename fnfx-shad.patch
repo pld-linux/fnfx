@@ -1,0 +1,97 @@
+--- src/fnfxd_cmds.c	2004-10-12 21:03:42.000000000 +0200
++++ src/fnfxd_cmds.c-shad	2006-06-08 22:32:50.245640184 +0200
+@@ -37,6 +37,7 @@
+ int brightness_status(void);
+ int brightness_up(void);
+ int brightness_down(void);
++int lcd_toggle(void);
+ int fan_toggle(void);
+ int fan_status(void);
+ int video_status(void);
+@@ -180,6 +181,31 @@
+     return value;
+ }
+
++int lcd_toggle()
++{
++    int value = 0;
++    FILE *f = fopen(ACPI_LCD, "r+");
++    value = brightness_status();
++
++    if (!f) {
++        printf("File open error.\n");
++        exit(1);
++    }
++    else {
++      value = brightness_status();
++      if(value<7) {
++         fprintf(f, "brightness:%1d", 7);
++         //printf("%i",value);
++         }
++      if(value==7) {
++         fprintf(f, "brightness:%1d", 0);
++         //printf("%i",value);
++         }
++    }
++    fclose(f);
++    return 0;
++}
++
+ int brightness_up()
+ {
+     FILE *f;
+--- src/fnfxd_cfg.c	2004-10-12 21:03:42.000000000 +0200
++++ src/fnfxd_cfg.c-shad	2006-06-08 22:33:38.671278368 +0200
+@@ -151,6 +151,8 @@
+         return 0;
+     else if (!(strcmp("brightness down", command)))
+         return 0;
++    else if (!(strcmp("toggle lcd", command)))
++        return 0;
+     else if (!(strcmp("toggle fan", command)))
+         return 0;
+     else if (!(strcmp("toggle video", command)))
+--- src/fnfxd_misc.c	2004-10-12 21:03:42.000000000 +0200
++++ src/fnfxd_misc.c-shad	2006-06-08 22:34:43.390439560 +0200
+@@ -48,6 +48,7 @@
+ extern void fatal(const char *fmt, ...) __attribute__ ((format(printf, 1, 2)));
+ extern int brightness_up(void);
+ extern int brightness_down(void);
++extern int lcd_toggle(void);
+ extern int fan_toggle(void);
+ extern int video_toggle(int);
+ extern int volume_up(void);
+@@ -102,6 +103,12 @@
+         else
+             return 0;
+     }
++    else if (!(strcmp("toggle lcd", command))) {
++        if (lcd_toggle())
++            return 1;
++        else
++            return 0;
++    }
+     else if (!(strcmp("toggle fan", command))) {
+         if (fan_toggle())
+             return 1;
+--- src/fnfx_cfg.c	2004-10-12 21:03:42.000000000 +0200
++++ src/fnfx_cfg.c-shad	2006-06-08 22:47:12.644535624 +0200
+@@ -135,6 +135,8 @@
+         return 0;
+     else if (!(strcmp("brightness down", command)))
+         return 0;
++    else if (!(strcmp("toggle lcd", command)))
++        return 0;
+     else if (!(strcmp("toggle fan", command)))
+         return 0;
+     else if (!(strcmp("toggle video", command)))
+--- src/fnfx_misc.c	2004-10-12 21:03:42.000000000 +0200
++++ src/fnfx_misc.c-shad	2006-06-08 22:48:53.823154136 +0200
+@@ -115,6 +115,7 @@
+     if (daemon_cfg->acpi.config & VAL_LCD) {
+         debug("  'brightness up'\t- Increase LCD brightness.");
+         debug("  'brightness down'\t- Decrease LCD brightness.");
++	debug("  'toggle lcd'\t- Toggle LCD.");
+     }
+     if (daemon_cfg->acpi.config & VAL_VIDEO) {
+         debug("  'toggle video'\t\t- Switch video mode (LCD, LCD & CRT, CRT)");
