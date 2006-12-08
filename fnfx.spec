@@ -10,6 +10,7 @@ Source0:	http://dl.sourceforge.net/fnfx/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Patch0:		%{name}-shad.patch
 URL:		http://fnfx.sourceforge.net/
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
