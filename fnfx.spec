@@ -10,7 +10,8 @@ Source0:	http://dl.sourceforge.net/fnfx/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Patch0:		%{name}-shad.patch
 URL:		http://fnfx.sourceforge.net/
-Requires(post,preun):   /sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,7 +49,7 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/rc.d/init.d,%{_sysconfdir}/fnfx,%{_b
 
 install src/fnfxd $RPM_BUILD_ROOT%{_sbindir}
 install src/fnfx $RPM_BUILD_ROOT%{_bindir}
-install etc/{fnfxd.conf,keymap} $RPM_BUILD_ROOT/etc/fnfx
+install etc/{fnfxd.conf,keymap} $RPM_BUILD_ROOT%{_sysconfdir}/fnfx
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/fnfx
 
 %clean
@@ -56,18 +57,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add %{name}
-if [ -f /var/lock/subsys/%{name} ]; then
-        /etc/rc.d/init.d/%{name} restart >&2
-else
-        echo "Run \"/etc/rc.d/init.d/%{name} start\" to start %{name} daemon." >&2
-fi
+%service fnfx restart
 
 %preun
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/%{name} ]; then
-                /etc/rc.d/init.d/%{name} stop >&2
-        fi
-        /sbin/chkconfig --del %{name}
+	%service fnfx stop
+	/sbin/chkconfig --del %{name}
 fi
 
 %files
@@ -76,4 +71,4 @@ fi
 %attr(755,root,root) %{_sbindir}/fnfxd
 %attr(755,root,root) %{_bindir}/fnfx
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}
-%attr(754,root,root)  /etc/rc.d/init.d/%{name}
+%attr(754,root,root) /etc/rc.d/init.d/%{name}
