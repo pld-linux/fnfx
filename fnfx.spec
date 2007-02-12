@@ -1,5 +1,5 @@
 Summary:	Toshiba laptop function key utility
-Summary(pl):	Narzêdzie do obs³ugi klawisza funkcyjnego w laptopach firmy Toshiba
+Summary(pl.UTF-8):   NarzÄ™dzie do obsÅ‚ugi klawisza funkcyjnego w laptopach firmy Toshiba
 Name:		fnfx
 Version:	0.3
 Release:	4
@@ -25,15 +25,15 @@ functions heavily depend on the system and/or kernel configuration.
 You will need at least a kernel (v2.4.x, v2.6.x) with ACPI and Toshiba
 support (CONFIG_ACPI and CONFIG_ACPI_TOSHIBA).
 
-%description -l pl
-FnFx pozwala posiadaczom laptopów firmy Toshiba na zmianê jasno¶ci
-wy¶wietlacza LCD, sterowanie wewnêtrznym wiatraczkiem i korzystanie z
-klawiszy specjalnych na klawiaturze (kombinacji Fn-x, skrótów
-klawiszowych). Wewnêtrzne funkcje daj± mo¿liwo¶æ mapowania kombinacji
-Fn-klawisz na funkcje takie jak zmiana g³o¶no¶ci, wyciszenie,
-suspend-to-disk, suspend-to-ram oraz prze³±czanie LCD/CRT/TV-out. Te
-funkcje w du¿ym stopniu s± zale¿ne od konfiguracji systemu i/lub
-j±dra. Potrzebne jest co najmniej j±dro (2.4.x, 2.6.x) z obs³ug± ACPI
+%description -l pl.UTF-8
+FnFx pozwala posiadaczom laptopÃ³w firmy Toshiba na zmianÄ™ jasnoÅ›ci
+wyÅ›wietlacza LCD, sterowanie wewnÄ™trznym wiatraczkiem i korzystanie z
+klawiszy specjalnych na klawiaturze (kombinacji Fn-x, skrÃ³tÃ³w
+klawiszowych). WewnÄ™trzne funkcje dajÄ… moÅ¼liwoÅ›Ä‡ mapowania kombinacji
+Fn-klawisz na funkcje takie jak zmiana gÅ‚oÅ›noÅ›ci, wyciszenie,
+suspend-to-disk, suspend-to-ram oraz przeÅ‚Ä…czanie LCD/CRT/TV-out. Te
+funkcje w duÅ¼ym stopniu sÄ… zaleÅ¼ne od konfiguracji systemu i/lub
+jÄ…dra. Potrzebne jest co najmniej jÄ…dro (2.4.x, 2.6.x) z obsÅ‚ugÄ… ACPI
 i Toshiby (CONFIG_ACPI i CONFIG_ACPI_TOSHIBA).
 
 %prep
