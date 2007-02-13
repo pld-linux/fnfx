@@ -1,5 +1,5 @@
 Summary:	Toshiba laptop function key utility
-Summary(pl.UTF-8):   Narzędzie do obsługi klawisza funkcyjnego w laptopach firmy Toshiba
+Summary(pl.UTF-8):	Narzędzie do obsługi klawisza funkcyjnego w laptopach firmy Toshiba
 Name:		fnfx
 Version:	0.3
 Release:	4
